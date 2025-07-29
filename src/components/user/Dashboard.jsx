@@ -60,7 +60,7 @@ const Dashboard = () => {
     { month: 'Sep', users: 200 },
     { month: 'Oct', users: 320 },
     { month: 'Nov', users: 230 },
-    { month: 'Dec', users: 630 },
+    { month: 'Dec', users: 100 },
   ];
 
   // Only show last 6 months for the chart
@@ -68,83 +68,87 @@ const Dashboard = () => {
 
   return (
     <div className="w-full min-h-screen bg-gray-50 py-6 px-2 sm:px-6">
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-2 mb-8">
-        {['daily', 'weekly', 'monthly'].map(f => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors duration-150 text-black
-              ${filter === f ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-blue-50'}`}
-          >
-            {f.charAt(0).toUpperCase() + f.slice(1)}
-          </button>
-        ))}
-        <div className="flex items-center gap-2">
-          <span className="text-black">Custom:</span>
-          <DatePicker
-            selectsRange
-            startDate={startDate}
-            endDate={endDate}
-            onChange={(update) => {
-              setDateRange(update);
-              setFilter('custom');
-            }}
-            isClearable={true}
-            className="px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            placeholderText="Select range"
-          />
+      <div className="max-w-6xl mx-auto">
+        {/* Filters */}
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          {['daily', 'weekly', 'monthly'].map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-2 rounded-lg font-medium transition-colors duration-150 text-black
+                ${filter === f ? 'bg-blue-600 text-white' : 'bg-gray-100 hover:bg-blue-50'}`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+          <div className="flex items-center gap-2">
+            <span className="text-black">Custom:</span>
+            <DatePicker
+              selectsRange
+              startDate={startDate}
+              endDate={endDate}
+              onChange={(update) => {
+                setDateRange(update);
+                setFilter('custom');
+              }}
+              isClearable={true}
+              className="px-2 py-1 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              placeholderText="Select range"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-        {stats.map(card => (
-          <StatCard key={card.title} {...card} />
-        ))}
-      </div>
+        {/* Stat Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+          {stats.map(card => (
+            <StatCard key={card.title} {...card} />
+          ))}
+        </div>
 
-      {/* Table and Chart Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Users Table */}
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 overflow-x-auto h-full">
-          <div className="font-bold text-xl mb-4 text-black">Recently Added Users</div>
-          <table className="min-w-full text-left text-sm">
-            <thead>
-              <tr className="text-black border-b">
-                <th className="py-2 px-3 text-black">Name</th>
-                <th className="py-2 px-3 text-black">Email</th>
-                <th className="py-2 px-3 text-black">Role</th>
-                <th className="py-2 px-3 text-black">Status</th>
-                <th className="py-2 px-3 text-black">Joined</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentUsers.map((user, idx) => (
-                <tr key={idx} className="border-b last:border-0 hover:bg-gray-50">
-                  <td className="py-2 px-3 font-medium text-black">{user.name}</td>
-                  <td className="py-2 px-3 text-black">{user.email}</td>
-                  <td className="py-2 px-3 text-black">{user.role}</td>
-                  <td className="py-2 px-3 text-black">{user.status}</td>
-                  <td className="py-2 px-3 text-black">{user.joined}</td>
+        {/* Table and Chart Row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Recent Users Table */}
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 overflow-x-auto h-full flex flex-col justify-between">
+            <div className="font-bold text-xl mb-4 text-black">Recently Added Users</div>
+            <table className="min-w-full text-left text-sm">
+              <thead>
+                <tr className="text-black border-b">
+                  <th className="py-2 px-3 text-black">Name</th>
+                  <th className="py-2 px-3 text-black">Email</th>
+                  <th className="py-2 px-3 text-black">Role</th>
+                  <th className="py-2 px-3 text-black">Status</th>
+                  <th className="py-2 px-3 text-black">Joined</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {recentUsers.map((user, idx) => (
+                  <tr key={idx} className="border-b last:border-0 hover:bg-gray-50">
+                    <td className="py-2 px-3 font-medium text-black">{user.name}</td>
+                    <td className="py-2 px-3 text-black">{user.email}</td>
+                    <td className="py-2 px-3 text-black">{user.role}</td>
+                    <td className="py-2 px-3 text-black">{user.status}</td>
+                    <td className="py-2 px-3 text-black">{user.joined}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        {/* User Growth Chart */}
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 flex-1 min-w-[220px] max-w-lg w-full mx-auto lg:mx-0 overflow-hidden">
-          <div className="font-bold text-xl mb-4 text-black">User Growth (Last 6 Months)</div>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={last6Months} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#000' }} />
-              <YAxis tick={{ fontSize: 12, fill: '#000' }} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="users" fill="#3b82f6" radius={[6, 6, 0, 0]} barSize={20} />
-            </BarChart>
-          </ResponsiveContainer>
+          {/* User Growth Chart */}
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 flex-1 min-w-[220px] max-w-lg w-full mx-auto lg:mx-0 overflow-hidden h-64 flex flex-col justify-between">
+            <div className="font-bold text-xl mb-4 text-black">User Growth (Last 6 Months)</div>
+            <div className="flex-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={last6Months} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="month" tick={{ fontSize: 12, fill: '#000' }} />
+                  <YAxis tick={{ fontSize: 12, fill: '#000' }} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="users" fill="#3b82f6" radius={[6, 6, 0, 0]} barSize={20} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
       </div>
     </div>

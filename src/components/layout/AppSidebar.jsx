@@ -6,14 +6,14 @@ const navItems = [
   {
     heading: 'Management',
     items: [
-      { name: 'User Management', to: '/users', icon: <HiUserGroup className="w-5 h-5 mr-3" /> },
+      { name: 'User Management', to: '/', icon: <HiUserGroup className="w-5 h-5 mr-3" /> },
       { name: 'Coin Management', to: '/coins', icon: <HiCurrencyDollar className="w-5 h-5 mr-3" /> },
     ],
   },
   {
     heading: 'Configurations',
     items: [
-      { name: 'System Preferences', to: '/system-preferences', icon: <HiCog className="w-5 h-5 mr-3" /> },
+      { name: 'System Preferences', to: '/settings', icon: <HiCog className="w-5 h-5 mr-3" /> },
     ],
   },
 ];
@@ -38,7 +38,7 @@ const AppSidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   <NavLink
                     to={item.to}
                     className={({ isActive }) =>
-                      `flex items-center px-3 py-2 rounded-lg text-white hover:bg-blue-700 transition-colors font-medium ${isActive ? 'bg-white bg-opacity-20' : ''}`
+                      `flex items-center px-3 py-2 rounded-lg transition-colors font-medium ${isActive ? 'bg-white text-black bg-opacity-20' : ''}`
                     }
                     onClick={() => setSidebarOpen(false)}
                   >
@@ -51,19 +51,6 @@ const AppSidebar = ({ sidebarOpen, setSidebarOpen }) => {
          </div>
         ))}
       </nav>
-      {/* Settings at bottom */}
-      <div className="px-4 py-4 mt-auto">
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            `flex items-center px-3 py-2 rounded-lg text-white hover:bg-blue-700 transition-colors font-medium ${isActive ? 'bg-white bg-opacity-20' : ''}`
-          }
-          onClick={() => setSidebarOpen(false)}
-        >
-          <HiCog className="w-5 h-5 mr-3" />
-          Settings
-        </NavLink>
-      </div>
    </div>
   );
 
