@@ -1,16 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Coin from './Coin';
+import CoinConfigurations from './CoinConfigurations';
+import CoinAnalytics from './CoinAnalytics';
+import RedemptionApproval from './RedemptionApproval';
+import SecurityLimits from './SecurityLimits';
 
 const tabs = [
   { name: 'Dashboard', key: 'dashboard' },
   { name: 'Transactions', key: 'coins' },
+  { name: 'Analytics', key: 'analytics' },
+  { name: 'Redemptions', key: 'redemptions' },
+  { name: 'Security', key: 'security' },
+  { name: 'Configurations', key: 'configurations' },
 ];
 
 const CoinManagement = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('dashboard');
   const tabRefs = useRef([]);
   const [indicatorStyle, setIndicatorStyle] = useState({});
+  
+  // Check if there's a tab specified in the location state
+  useEffect(() => {
+    if (location.state && location.state.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location]);
 
   useEffect(() => {
     const idx = tabs.findIndex(tab => tab.key === activeTab);
@@ -59,6 +76,10 @@ const CoinManagement = () => {
       <div className="pt-6">
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'coins' && <Coin />}
+        {activeTab === 'analytics' && <CoinAnalytics />}
+        {activeTab === 'redemptions' && <RedemptionApproval />}
+        {activeTab === 'security' && <SecurityLimits />}
+        {activeTab === 'configurations' && <CoinConfigurations />}
       </div>
     </div>
   );

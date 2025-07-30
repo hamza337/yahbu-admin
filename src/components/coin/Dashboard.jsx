@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Card component for coin statistics
 const CoinStatCard = ({ title, value, color }) => (
@@ -9,7 +10,7 @@ const CoinStatCard = ({ title, value, color }) => (
 );
 
 // User wallet card component
-const UserWalletCard = ({ user }) => (
+const UserWalletCard = ({ user, onAddCoins, onRemoveCoins }) => (
   <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4 mb-4">
     <div className="flex justify-between items-center mb-3">
       <div className="font-semibold text-black">{user.name}</div>
@@ -38,10 +39,16 @@ const UserWalletCard = ({ user }) => (
       </div>
     </div>
     <div className="flex gap-2 mt-4">
-      <button className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+      <button 
+        className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+        onClick={onAddCoins}
+      >
         ADD COINS
       </button>
-      <button className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition">
+      <button 
+        className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition"
+        onClick={onRemoveCoins}
+      >
         REMOVE COINS
       </button>
     </div>
@@ -81,6 +88,49 @@ const CoinRule = ({ rule }) => (
 
 const Dashboard = () => {
   const [searchUser, setSearchUser] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('add'); // 'add' or 'remove'
+  const [coinAmount, setCoinAmount] = useState('');
+  const [coinType, setCoinType] = useState('paid'); // 'paid' or 'free'
+  const [modalUser, setModalUser] = useState(null);
+  const navigate = useNavigate();
+  
+  // Function to navigate to configurations tab with specific section active
+  const navigateToConfigurations = (section) => {
+    // Store the active section in sessionStorage to be retrieved by CoinConfigurations
+    sessionStorage.setItem('activeConfigSection', section);
+    // Navigate to the configurations tab
+    navigate('/coin-management', { state: { activeTab: 'configurations' } });
+  };
+  
+  // Function to open the add coins modal
+  const handleAddCoins = (user) => {
+    setModalType('add');
+    setModalUser(user);
+    setCoinAmount('');
+    setCoinType('paid');
+    setShowModal(true);
+  };
+  
+  // Function to open the remove coins modal
+  const handleRemoveCoins = (user) => {
+    setModalType('remove');
+    setModalUser(user);
+    setCoinAmount('');
+    setCoinType('paid');
+    setShowModal(true);
+  };
+  
+  // Function to handle the coin transaction
+  const handleCoinTransaction = () => {
+    // Here you would implement the actual API call to update the user's coins
+    console.log(`${modalType === 'add' ? 'Adding' : 'Removing'} ${coinAmount} ${coinType} coins ${modalType === 'add' ? 'to' : 'from'} ${modalUser.name}`);
+    
+    // Close the modal after transaction
+    setShowModal(false);
+    
+    // In a real implementation, you would update the user's coin balance here
+  };
 
   // Dummy data for coin statistics
   const coinStats = [
@@ -153,7 +203,11 @@ const Dashboard = () => {
             </div>
 
             {/* User Profile Card */}
-            <UserWalletCard user={userData} />
+            <UserWalletCard 
+              user={userData} 
+              onAddCoins={() => handleAddCoins(userData)}
+              onRemoveCoins={() => handleRemoveCoins(userData)}
+            />
           </div>
 
           {/* COIN ACTIVITY LOGS */}
@@ -186,7 +240,10 @@ const Dashboard = () => {
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-black">COIN REWARD TIERS</h2>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <button 
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                onClick={() => navigateToConfigurations('redemption')}
+              >
                 EDIT
               </button>
             </div>
@@ -202,7 +259,10 @@ const Dashboard = () => {
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-black">COIN ISSUANCE RULES</h2>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+              <button 
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                onClick={() => navigateToConfigurations('issuance')}
+              >
                 EDIT
               </button>
             </div>
@@ -215,6 +275,87 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      
+      {/* Coin Transaction Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-xl font-bold mb-4 text-black">
+              {modalType === 'add' ? 'Add Coins' : 'Remove Coins'} - {modalUser.name}
+            </h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Coin Type</label>
+                <div className="flex gap-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio"
+                      name="coinType"
+                      value="paid"
+                      checked={coinType === 'paid'}
+                      onChange={() => setCoinType('paid')}
+                    />
+                    <span className="ml-2 text-black">Paid Coins</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      className="form-radio"
+                      name="coinType"
+                      value="free"
+                      checked={coinType === 'free'}
+                      onChange={() => setCoinType('free')}
+                    />
+                    <span className="ml-2 text-black">Free Coins</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                <input
+                  type="number"
+                  value={coinAmount}
+                  onChange={(e) => setCoinAmount(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  placeholder="Enter amount"
+                  min="1"
+                  required
+                />
+              </div>
+              
+              {modalType === 'remove' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Reason (optional)</label>
+                  <textarea
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                    placeholder="Enter reason for removing coins"
+                    rows="2"
+                  />
+                </div>
+              )}
+            </div>
+            
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 border border-gray-300 rounded-md text-black hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleCoinTransaction}
+                className={`px-4 py-2 rounded-md text-white ${modalType === 'add' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-red-600 hover:bg-red-700'}`}
+                disabled={!coinAmount || coinAmount <= 0}
+              >
+                {modalType === 'add' ? 'Add Coins' : 'Remove Coins'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

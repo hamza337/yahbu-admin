@@ -1,19 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { HiUserGroup, HiCurrencyDollar, HiCog, HiX } from 'react-icons/hi';
+import { HiUserGroup, HiCurrencyDollar, HiCog, HiX, HiShieldCheck, HiDocumentReport, HiLockClosed, HiCreditCard } from 'react-icons/hi';
 
 const navItems = [
   {
     heading: 'Management',
     items: [
-      { name: 'User Management', to: '/', icon: <HiUserGroup className="w-5 h-5 mr-3" /> },
-      { name: 'Coin Management', to: '/coins', icon: <HiCurrencyDollar className="w-5 h-5 mr-3" /> },
+      { name: 'User Management', to: '/user-management', icon: <HiUserGroup className="w-5 h-5 mr-3" /> },
+      { name: 'Coin & Rewards', to: '/coins', icon: <HiCurrencyDollar className="w-5 h-5 mr-3" /> },
+      { name: 'Content Moderation', to: '/moderation', icon: <HiShieldCheck className="w-5 h-5 mr-3" /> },
+    ],
+  },
+  {
+    heading: 'Finance & Analytics',
+    items: [
+      { name: 'Financial Monitoring', to: '/financial', icon: <HiCreditCard className="w-5 h-5 mr-3" /> },
+      { name: 'Analytics & Reports', to: '/analytics', icon: <HiDocumentReport className="w-5 h-5 mr-3" /> },
     ],
   },
   {
     heading: 'Configurations',
     items: [
-      { name: 'System Preferences', to: '/settings', icon: <HiCog className="w-5 h-5 mr-3" /> },
+      { name: 'Roles & Permissions', to: '/roles', icon: <HiLockClosed className="w-5 h-5 mr-3" /> },
     ],
   },
 ];

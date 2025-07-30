@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const AppHeader = ({ sidebarOpen, setSidebarOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -59,7 +62,10 @@ const AppHeader = ({ sidebarOpen, setSidebarOpen }) => {
             <div className="my-2 border-t border-gray-100" />
             <button
               className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 font-semibold"
-              onClick={() => {/* handle logout here */}}
+              onClick={() => {
+                // handle logout here
+                navigate('/');
+              }}
             >
               Logout
             </button>
