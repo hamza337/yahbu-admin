@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { HiUserGroup, HiCurrencyDollar, HiCog, HiX, HiShieldCheck, HiDocumentReport, HiLockClosed, HiCreditCard } from 'react-icons/hi';
+import { HiUserGroup, HiCurrencyDollar, HiCog, HiX, HiShieldCheck, HiDocumentReport, HiLockClosed, HiCreditCard, HiOutlineDocumentText, HiOutlineDatabase } from 'react-icons/hi';
 
 const navItems = [
   {
@@ -19,9 +19,12 @@ const navItems = [
     ],
   },
   {
-    heading: 'Configurations',
+    heading: 'Administration',
     items: [
       { name: 'Roles & Permissions', to: '/roles', icon: <HiLockClosed className="w-5 h-5 mr-3" /> },
+      { name: 'Security Settings', to: '/security', icon: <HiCog className="w-5 h-5 mr-3" /> },
+      { name: 'Audit Logs', to: '/audit-logs', icon: <HiOutlineDocumentText className="w-5 h-5 mr-3" /> },
+      { name: 'Backups', to: '/backup', icon: <HiOutlineDatabase className="w-5 h-5 mr-3" /> },
     ],
   },
 ];

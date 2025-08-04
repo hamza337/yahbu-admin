@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 
 const ContentModeration = () => {
   // State for active tab
-  const [activeTab, setActiveTab] = useState('flagged');
+  const [activeTab, setActiveTab] = useState('recent');
 
   // State for content items
   const [flaggedContent, setFlaggedContent] = useState([
-    { id: 1, type: 'post', user: 'John Smith', avatar: 'https://randomuser.me/api/portraits/men/1.jpg', content: 'This is a potentially offensive post with inappropriate language.', timestamp: '2024-06-10 14:32:45', reason: 'Offensive language', reportedBy: 'User123', status: 'Pending' },
-    { id: 2, type: 'comment', user: 'Emma Johnson', avatar: 'https://randomuser.me/api/portraits/women/2.jpg', content: 'This comment contains hate speech targeting a specific group.', timestamp: '2024-06-09 09:15:22', reason: 'Hate speech', reportedBy: 'User456', status: 'Pending' },
-    { id: 3, type: 'video', user: 'Michael Brown', avatar: 'https://randomuser.me/api/portraits/men/3.jpg', content: 'This video contains violent content that may be disturbing to viewers.', timestamp: '2024-06-08 18:45:10', reason: 'Violence', reportedBy: 'User789', status: 'Pending' },
-    { id: 4, type: 'post', user: 'Olivia Davis', avatar: 'https://randomuser.me/api/portraits/women/4.jpg', content: 'This post contains misleading information about health treatments.', timestamp: '2024-06-07 11:20:33', reason: 'Misinformation', reportedBy: 'User101', status: 'Pending' },
-    { id: 5, type: 'comment', user: 'William Wilson', avatar: 'https://randomuser.me/api/portraits/men/5.jpg', content: 'This comment contains spam links to suspicious websites.', timestamp: '2024-06-06 16:05:18', reason: 'Spam', reportedBy: 'User202', status: 'Pending' },
+    { id: 1, type: 'post', user: 'John Smith', avatar: 'https://randomuser.me/api/portraits/men/1.jpg', content: 'This is a potentially offensive post with inappropriate language.', timestamp: '2024-06-10 14:32:45', reason: 'Inappropriate Content', reportedBy: 'User123', status: 'Pending', flagDetails: 'Contains offensive language and inappropriate content' },
+    { id: 2, type: 'comment', user: 'Emma Johnson', avatar: 'https://randomuser.me/api/portraits/women/2.jpg', content: 'This comment contains hate speech targeting a specific group.', timestamp: '2024-06-09 09:15:22', reason: 'Against Community Guidelines', reportedBy: 'User456', status: 'Pending', flagDetails: 'Hate speech targeting specific groups' },
+    { id: 3, type: 'video', user: 'Michael Brown', avatar: 'https://randomuser.me/api/portraits/men/3.jpg', content: 'This video contains violent content that may be disturbing to viewers.', timestamp: '2024-06-08 18:45:10', reason: 'Violence & Graphic Content', reportedBy: 'User789', status: 'Pending', flagDetails: 'Contains disturbing violent content' },
+    { id: 4, type: 'post', user: 'Olivia Davis', avatar: 'https://randomuser.me/api/portraits/women/4.jpg', content: 'This post contains misleading information about health treatments.', timestamp: '2024-06-07 11:20:33', reason: 'Misinformation', reportedBy: 'User101', status: 'Pending', flagDetails: 'Spreading false health information' },
+    { id: 5, type: 'comment', user: 'William Wilson', avatar: 'https://randomuser.me/api/portraits/men/5.jpg', content: 'This comment contains spam links to suspicious websites.', timestamp: '2024-06-06 16:05:18', reason: 'Spam & Scam', reportedBy: 'User202', status: 'Pending', flagDetails: 'Contains suspicious links and spam content' },
+    { id: 6, type: 'video', user: 'Sarah Connor', avatar: 'https://randomuser.me/api/portraits/women/20.jpg', content: 'This video contains explicit adult content not suitable for general audience.', timestamp: '2024-06-05 20:15:30', reason: 'Sexuality & Nudity', reportedBy: 'User303', status: 'Pending', flagDetails: 'Contains explicit sexual content and nudity' },
+    { id: 7, type: 'post', user: 'Alex Turner', avatar: 'https://randomuser.me/api/portraits/men/21.jpg', content: 'This post promotes dangerous activities without proper warnings.', timestamp: '2024-06-04 16:42:18', reason: 'Dangerous Activities', reportedBy: 'User404', status: 'Pending', flagDetails: 'Promotes unsafe activities without warnings' },
   ]);
 
   const [recentContent, setRecentContent] = useState([
@@ -21,13 +23,7 @@ const ContentModeration = () => {
     { id: 10, type: 'post', user: 'Daniel Jackson', avatar: 'https://randomuser.me/api/portraits/men/10.jpg', content: 'Just finished my first marathon! Feeling accomplished.', timestamp: '2024-06-08 18:10:55', likes: 95, comments: 27 },
   ]);
 
-  const [moderatedContent, setModeratedContent] = useState([
-    { id: 11, type: 'post', user: 'Amelia White', avatar: 'https://randomuser.me/api/portraits/women/11.jpg', content: 'This post contained inappropriate content.', timestamp: '2024-06-05 13:25:40', action: 'Removed', moderator: 'Admin1', reason: 'Nudity' },
-    { id: 12, type: 'comment', user: 'Henry Garcia', avatar: 'https://randomuser.me/api/portraits/men/12.jpg', content: 'This comment violated community guidelines.', timestamp: '2024-06-04 11:15:22', action: 'Hidden', moderator: 'Admin2', reason: 'Harassment' },
-    { id: 13, type: 'video', user: 'Lily Martinez', avatar: 'https://randomuser.me/api/portraits/women/13.jpg', content: 'This video was reported for copyright infringement.', timestamp: '2024-06-03 15:40:10', action: 'Removed', moderator: 'Admin1', reason: 'Copyright' },
-    { id: 14, type: 'post', user: 'Sebastian Lee', avatar: 'https://randomuser.me/api/portraits/men/14.jpg', content: 'This post contained misleading information.', timestamp: '2024-06-02 09:55:33', action: 'Warning', moderator: 'Admin3', reason: 'Misinformation' },
-    { id: 15, type: 'comment', user: 'Victoria Clark', avatar: 'https://randomuser.me/api/portraits/women/15.jpg', content: 'This comment contained spam links.', timestamp: '2024-06-01 14:20:18', action: 'Removed', moderator: 'Admin2', reason: 'Spam' },
-  ]);
+
 
   // State for user violations
   const [userViolations, setUserViolations] = useState([
@@ -51,6 +47,12 @@ const ContentModeration = () => {
   const [suspensionDays, setSuspensionDays] = useState(1);
   const [actionReason, setActionReason] = useState('');
 
+  // State for flag content modal
+  const [showFlagModal, setShowFlagModal] = useState(false);
+  const [selectedContentToFlag, setSelectedContentToFlag] = useState(null);
+  const [flagCategory, setFlagCategory] = useState('inappropriate');
+  const [flagReason, setFlagReason] = useState('');
+
   // Handle content moderation
   const openModerationModal = (content) => {
     setSelectedContent(content);
@@ -66,20 +68,8 @@ const ContentModeration = () => {
     const updatedFlaggedContent = flaggedContent.filter(item => item.id !== selectedContent.id);
     setFlaggedContent(updatedFlaggedContent);
 
-    // Add to moderated content
-    const newModeratedContent = {
-      id: selectedContent.id,
-      type: selectedContent.type,
-      user: selectedContent.user,
-      avatar: selectedContent.avatar,
-      content: selectedContent.content,
-      timestamp: selectedContent.timestamp,
-      action: moderationAction === 'remove' ? 'Removed' : moderationAction === 'hide' ? 'Hidden' : 'Warning',
-      moderator: 'Admin1', // This would be the current admin user
-      reason: moderationReason
-    };
-
-    setModeratedContent([newModeratedContent, ...moderatedContent]);
+    // Content has been moderated and removed from flagged content
+    // No need to track moderated content separately
 
     // Close modal
     setShowModerationModal(false);
@@ -96,6 +86,53 @@ const ContentModeration = () => {
     setShowUserActionModal(true);
   };
 
+  // Handle flag content
+  const openFlagModal = (content) => {
+    setSelectedContentToFlag(content);
+    setFlagCategory('inappropriate');
+    setFlagReason('');
+    setShowFlagModal(true);
+  };
+
+  const handleFlagContent = () => {
+    if (!selectedContentToFlag || !flagReason.trim()) return;
+
+    // Get flag category display name
+    const flagCategoryNames = {
+      'inappropriate': 'Inappropriate Content',
+      'offensive': 'Offensive Language',
+      'sexuality': 'Sexuality & Nudity',
+      'community': 'Against Community Guidelines',
+      'violence': 'Violence & Graphic Content',
+      'misinformation': 'Misinformation',
+      'spam': 'Spam & Scam',
+      'dangerous': 'Dangerous Activities',
+      'harassment': 'Harassment',
+      'copyright': 'Copyright Violation'
+    };
+
+    // Create new flagged content
+    const newFlaggedContent = {
+      ...selectedContentToFlag,
+      id: Date.now(), // Generate new ID
+      reason: flagCategoryNames[flagCategory],
+      reportedBy: 'Admin',
+      status: 'Pending',
+      flagDetails: flagReason
+    };
+
+    // Add to flagged content
+    setFlaggedContent([newFlaggedContent, ...flaggedContent]);
+
+    // Remove from recent content
+    setRecentContent(recentContent.filter(item => item.id !== selectedContentToFlag.id));
+
+    // Close modal
+    setShowFlagModal(false);
+    setSelectedContentToFlag(null);
+    setFlagReason('');
+  };
+
   const handleUserAction = () => {
     if (!selectedUser || !actionReason.trim()) return;
 
@@ -103,10 +140,28 @@ const ContentModeration = () => {
     const updatedUserViolations = userViolations.map(user => {
       if (user.id === selectedUser.id) {
         let newStatus = 'Warning';
-        if (userAction === 'suspend') {
-          newStatus = `Suspended (${suspensionDays} days)`;
-        } else if (userAction === 'ban') {
-          newStatus = 'Banned';
+        
+        switch (userAction) {
+          case 'warning':
+            newStatus = 'Warning';
+            break;
+          case 'restrict_content':
+            newStatus = 'Content Restricted';
+            break;
+          case 'suspend':
+            newStatus = `Suspended (${suspensionDays} days)`;
+            break;
+          case 'ban':
+            newStatus = 'Banned (Permanent)';
+            break;
+          case 'content_review':
+            newStatus = 'Content Under Review';
+            break;
+          case 'limit_posting':
+            newStatus = 'Posting Limited';
+            break;
+          default:
+            newStatus = 'Warning';
         }
 
         return {
@@ -144,20 +199,34 @@ const ContentModeration = () => {
   // Helper function to get badge color based on reason
   const getReasonColor = (reason) => {
     switch (reason) {
+      case 'Inappropriate Content':
+        return 'bg-red-100 text-red-800';
+      case 'Against Community Guidelines':
+        return 'bg-red-100 text-red-800';
+      case 'Violence & Graphic Content':
+        return 'bg-orange-100 text-orange-800';
+      case 'Sexuality & Nudity':
+        return 'bg-purple-100 text-purple-800';
+      case 'Misinformation':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'Spam & Scam':
+        return 'bg-blue-100 text-blue-800';
+      case 'Dangerous Activities':
+        return 'bg-pink-100 text-pink-800';
+      case 'Harassment':
+        return 'bg-pink-100 text-pink-800';
+      case 'Copyright':
+        return 'bg-purple-100 text-purple-800';
+      // Legacy support for old reason types
       case 'Offensive language':
       case 'Hate speech':
         return 'bg-red-100 text-red-800';
       case 'Violence':
         return 'bg-orange-100 text-orange-800';
-      case 'Misinformation':
-        return 'bg-yellow-100 text-yellow-800';
       case 'Spam':
         return 'bg-blue-100 text-blue-800';
       case 'Nudity':
-      case 'Copyright':
         return 'bg-purple-100 text-purple-800';
-      case 'Harassment':
-        return 'bg-pink-100 text-pink-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -168,10 +237,14 @@ const ContentModeration = () => {
     switch (action) {
       case 'Removed':
         return 'bg-red-100 text-red-800';
+      case 'Hidden (User Only)':
       case 'Hidden':
         return 'bg-yellow-100 text-yellow-800';
+      case 'Warning Issued':
       case 'Warning':
         return 'bg-blue-100 text-blue-800';
+      case 'Taken Down':
+        return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -185,6 +258,12 @@ const ContentModeration = () => {
       return 'bg-orange-100 text-orange-800';
     } else if (status.includes('Banned')) {
       return 'bg-red-100 text-red-800';
+    } else if (status.includes('Content Restricted')) {
+      return 'bg-purple-100 text-purple-800';
+    } else if (status.includes('Content Under Review')) {
+      return 'bg-blue-100 text-blue-800';
+    } else if (status.includes('Posting Limited')) {
+      return 'bg-indigo-100 text-indigo-800';
     } else {
       return 'bg-green-100 text-green-800';
     }
@@ -194,22 +273,18 @@ const ContentModeration = () => {
     <div className="w-full min-h-screen bg-gray-50 py-6 px-2 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Summary Statistics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+            <div className="text-sm font-medium text-gray-600 mb-1">Recent Content</div>
+            <div className="text-2xl font-bold text-blue-600">{recentContent.length}</div>
+          </div>
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
             <div className="text-sm font-medium text-gray-600 mb-1">Flagged Content</div>
             <div className="text-2xl font-bold text-red-600">{flaggedContent.length}</div>
           </div>
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-            <div className="text-sm font-medium text-gray-600 mb-1">Content Reviewed (Today)</div>
-            <div className="text-2xl font-bold text-green-600">12</div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-            <div className="text-sm font-medium text-gray-600 mb-1">Content Removed (Today)</div>
-            <div className="text-2xl font-bold text-orange-600">5</div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-            <div className="text-sm font-medium text-gray-600 mb-1">User Violations (Today)</div>
-            <div className="text-2xl font-bold text-purple-600">3</div>
+            <div className="text-sm font-medium text-gray-600 mb-1">User Violations</div>
+            <div className="text-2xl font-bold text-purple-600">{userViolations.length}</div>
           </div>
         </div>
 
@@ -218,23 +293,17 @@ const ContentModeration = () => {
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8">
               <button
-                onClick={() => setActiveTab('flagged')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'flagged' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
-              >
-                Flagged Content
-                <span className="ml-2 py-0.5 px-2 text-xs rounded-full bg-red-100 text-red-800">{flaggedContent.length}</span>
-              </button>
-              <button
                 onClick={() => setActiveTab('recent')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'recent' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
               >
                 Recent Content
               </button>
               <button
-                onClick={() => setActiveTab('moderated')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'moderated' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+                onClick={() => setActiveTab('flagged')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'flagged' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
               >
-                Moderated Content
+                Flagged Content
+                <span className="ml-2 py-0.5 px-2 text-xs rounded-full bg-red-100 text-red-800">{flaggedContent.length}</span>
               </button>
               <button
                 onClick={() => setActiveTab('users')}
@@ -276,8 +345,13 @@ const ContentModeration = () => {
                           <div className="mt-2 p-3 bg-gray-50 rounded-md text-sm text-gray-800">
                             {content.content}
                           </div>
-                          <div className="mt-2 text-xs text-gray-500">
-                            <span>Reported by: {content.reportedBy}</span>
+                          <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded-md">
+                            <div className="text-xs font-medium text-red-800 mb-1">Flag Details:</div>
+                            <div className="text-xs text-red-700">{content.flagDetails}</div>
+                          </div>
+                          <div className="mt-2 text-xs text-gray-500 flex justify-between">
+                            <span>Reported by: <span className="font-medium">{content.reportedBy}</span></span>
+                            <span>Status: <span className="font-medium text-orange-600">{content.status}</span></span>
                           </div>
                         </div>
                       </div>
@@ -346,10 +420,10 @@ const ContentModeration = () => {
                       </div>
                       <div className="flex space-x-2">
                         <button 
-                          onClick={() => openModerationModal(content)}
+                          onClick={() => openFlagModal(content)}
                           className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
                         >
-                          Flag
+                          Flag Content
                         </button>
                       </div>
                     </div>
@@ -360,58 +434,7 @@ const ContentModeration = () => {
           </div>
         )}
 
-        {activeTab === 'moderated' && (
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-            <div className="flex justify-between items-center p-4 border-b border-gray-200">
-              <h3 className="font-bold text-lg text-gray-800">Moderated Content</h3>
-              <div>
-                <select className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black bg-white">
-                  <option value="all">All Actions</option>
-                  <option value="removed">Removed</option>
-                  <option value="hidden">Hidden</option>
-                  <option value="warning">Warning</option>
-                </select>
-              </div>
-            </div>
-            <div className="overflow-hidden">
-              <div className="space-y-4 p-4">
-                {moderatedContent.map(content => (
-                  <div key={content.id} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-4">
-                        <img src={content.avatar} alt={content.user} className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm" />
-                        <div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-900">{content.user}</span>
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTypeColor(content.type)}`}>
-                              {content.type.charAt(0).toUpperCase() + content.type.slice(1)}
-                            </span>
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getActionColor(content.action)}`}>
-                              {content.action}
-                            </span>
-                          </div>
-                          <p className="mt-1 text-sm text-gray-600">{content.timestamp}</p>
-                          <div className="mt-2 p-3 bg-gray-50 rounded-md text-sm text-gray-800">
-                            {content.content}
-                          </div>
-                          <div className="mt-2 text-xs text-gray-500 flex space-x-4">
-                            <span>Reason: {content.reason}</span>
-                            <span>Moderator: {content.moderator}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <button className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">
-                          Restore
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+
 
         {activeTab === 'users' && (
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
@@ -469,9 +492,6 @@ const ContentModeration = () => {
                           >
                             Take Action
                           </button>
-                          <button className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition">
-                            View History
-                          </button>
                         </div>
                       </td>
                     </tr>
@@ -506,9 +526,27 @@ const ContentModeration = () => {
                       onChange={(e) => setModerationAction(e.target.value)}
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
-                      <option value="remove">Remove Content</option>
-                      <option value="hide">Hide Content</option>
-                      <option value="warn">Issue Warning</option>
+                      <option value="remove">Remove Content Completely</option>
+                      <option value="hide">Restrict to User Only (Hide Publicly)</option>
+                      <option value="warn">Issue Warning to User</option>
+                      <option value="takedown">Take Down Content</option>
+                    </select>
+                  </div>
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Flag Category</label>
+                    <select
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                      <option value="inappropriate">Inappropriate Content</option>
+                      <option value="offensive">Offensive Language</option>
+                      <option value="sexuality">Sexuality & Nudity</option>
+                      <option value="community">Against Community Guidelines</option>
+                      <option value="violence">Violence & Graphic Content</option>
+                      <option value="misinformation">Misinformation</option>
+                      <option value="spam">Spam & Scam</option>
+                      <option value="dangerous">Dangerous Activities</option>
+                      <option value="harassment">Harassment</option>
+                      <option value="copyright">Copyright Violation</option>
                     </select>
                   </div>
                   <div className="mt-4">
@@ -568,8 +606,11 @@ const ContentModeration = () => {
                       className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
                       <option value="warning">Issue Warning</option>
-                      <option value="suspend">Suspend User</option>
-                      <option value="ban">Ban User</option>
+                      <option value="restrict_content">Restrict Content Visibility</option>
+                      <option value="suspend">Suspend User (Temporary)</option>
+                      <option value="ban">Ban User (Permanent)</option>
+                      <option value="content_review">Require Content Review</option>
+                      <option value="limit_posting">Limit Posting Privileges</option>
                     </select>
                   </div>
                   {userAction === 'suspend' && (
@@ -613,6 +654,74 @@ const ContentModeration = () => {
                     className={`px-4 py-2 text-white text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 w-full ${actionReason.trim() ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-indigo-300 cursor-not-allowed'}`}
                   >
                     Confirm Action
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Flag Content Modal */}
+        {showFlagModal && (
+          <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+            <div className="relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white">
+              <div className="mt-3">
+                <div className="flex items-center justify-center">
+                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                    <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6v1a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-lg leading-6 font-medium text-gray-900 text-center mt-2">Flag Content</h3>
+                <div className="mt-2 px-7 py-3">
+                  <p className="text-sm text-gray-500 mb-3">
+                    You are about to flag content from <span className="font-medium text-gray-700">{selectedContentToFlag?.user}</span>.
+                  </p>
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Flag Category</label>
+                    <select
+                      value={flagCategory}
+                      onChange={(e) => setFlagCategory(e.target.value)}
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                    >
+                      <option value="inappropriate">Inappropriate Content</option>
+                      <option value="offensive">Offensive Language</option>
+                      <option value="sexuality">Sexuality & Nudity</option>
+                      <option value="community">Against Community Guidelines</option>
+                      <option value="violence">Violence & Graphic Content</option>
+                      <option value="misinformation">Misinformation</option>
+                      <option value="spam">Spam & Scam</option>
+                      <option value="dangerous">Dangerous Activities</option>
+                      <option value="harassment">Harassment</option>
+                      <option value="copyright">Copyright Violation</option>
+                    </select>
+                  </div>
+                  <div className="mt-4">
+                    <label htmlFor="flagReason" className="block text-sm font-medium text-gray-700 mb-1">Detailed Reason</label>
+                    <textarea
+                      id="flagReason"
+                      rows="3"
+                      className="shadow-sm focus:ring-red-500 focus:border-red-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
+                      placeholder="Please provide specific details about why this content is being flagged"
+                      value={flagReason}
+                      onChange={(e) => setFlagReason(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between gap-2 px-4 py-3">
+                  <button
+                    onClick={() => setShowFlagModal(false)}
+                    className="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 w-full"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleFlagContent}
+                    disabled={!flagReason.trim()}
+                    className={`px-4 py-2 text-white text-base font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-300 w-full ${flagReason.trim() ? 'bg-red-600 hover:bg-red-700' : 'bg-red-300 cursor-not-allowed'}`}
+                  >
+                    Flag Content
                   </button>
                 </div>
               </div>

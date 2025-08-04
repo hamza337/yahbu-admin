@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HiOutlineUserGroup, HiOutlineShieldCheck, HiOutlineLockClosed, HiOutlineTrash, HiOutlinePencil, HiOutlinePlus, HiOutlineSearch, HiOutlineCheck, HiOutlineX } from 'react-icons/hi';
+import { HiOutlineUserGroup, HiOutlineShieldCheck, HiOutlineLockClosed, HiOutlineTrash, HiOutlinePencil, HiOutlinePlus, HiOutlineSearch, HiOutlineCheck, HiOutlineX, HiOutlineCurrencyDollar, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineCog } from 'react-icons/hi';
 
 const RoleManagement = () => {
   // State for roles
@@ -118,12 +118,12 @@ const RoleManagement = () => {
   // Permission module names for display
   const permissionModules = [
     { id: 'userManagement', name: 'User Management', icon: <HiOutlineUserGroup className="h-5 w-5" /> },
-    { id: 'coinManagement', name: 'Coin & Rewards', icon: <HiOutlineShieldCheck className="h-5 w-5" /> },
-    { id: 'contentModeration', name: 'Content Moderation', icon: <HiOutlineShieldCheck className="h-5 w-5" /> },
-    { id: 'financialTransactions', name: 'Financial Transactions', icon: <HiOutlineShieldCheck className="h-5 w-5" /> },
-    { id: 'analyticsReports', name: 'Analytics & Reports', icon: <HiOutlineShieldCheck className="h-5 w-5" /> },
-    { id: 'roleManagement', name: 'Role Management', icon: <HiOutlineLockClosed className="h-5 w-5" /> },
-    { id: 'systemSettings', name: 'System Settings', icon: <HiOutlineLockClosed className="h-5 w-5" /> },
+    { id: 'coinManagement', name: 'Coin & Rewards', icon: <HiOutlineCurrencyDollar className="h-5 w-5" /> },
+    { id: 'contentModeration', name: 'Content Moderation', icon: <HiOutlineDocumentText className="h-5 w-5" /> },
+    { id: 'financialTransactions', name: 'Financial Transactions', icon: <HiOutlineChartBar className="h-5 w-5" /> },
+    { id: 'analyticsReports', name: 'Analytics & Reports', icon: <HiOutlineChartBar className="h-5 w-5" /> },
+    { id: 'roleManagement', name: 'Role Management', icon: <HiOutlineShieldCheck className="h-5 w-5" /> },
+    { id: 'systemSettings', name: 'System Settings', icon: <HiOutlineCog className="h-5 w-5" /> },
   ];
 
   // Permission actions
@@ -238,42 +238,50 @@ const RoleManagement = () => {
   );
 
   return (
-    <div className="w-full">
-      {/* Tabs */}
-      <div className="mb-6">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Professional Tabs - Center Aligned */}
+      <div className="mb-8 flex justify-center">
+        <div className="bg-gray-50 p-1 rounded-xl border border-gray-200 shadow-sm max-w-md">
+          <nav className="flex space-x-1" aria-label="Tabs">
             <button
               onClick={() => setActiveTab('roles')}
-              className={`${activeTab === 'roles'
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              className={`${
+                activeTab === 'roles'
+                  ? 'bg-white text-blue-600 shadow-sm border border-gray-200'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-white/50'
+              } py-2.5 px-4 text-sm font-semibold rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
-              Roles & Permissions
+              <div className="flex items-center justify-center space-x-2">
+                <HiOutlineShieldCheck className="h-4 w-4" />
+                <span>Roles</span>
+              </div>
             </button>
             <button
               onClick={() => setActiveTab('users')}
-              className={`${activeTab === 'users'
-                ? 'border-blue-500 text-blue-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+              className={`${
+                activeTab === 'users'
+                  ? 'bg-white text-blue-600 shadow-sm border border-gray-200'
+                  : 'text-gray-600 hover:text-gray-800 hover:bg-white/50'
+              } py-2.5 px-4 text-sm font-semibold rounded-lg transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
             >
-              Users & Assignments
+              <div className="flex items-center justify-center space-x-2">
+                <HiOutlineUserGroup className="h-4 w-4" />
+                <span>Users</span>
+              </div>
             </button>
           </nav>
         </div>
       </div>
 
-      {/* Search and Actions */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-        <div className="relative w-full sm:w-64">
+      {/* Search and Actions - Center Aligned */}
+      <div className="mb-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+        <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <HiOutlineSearch className="h-5 w-5 text-gray-400" />
           </div>
           <input
             type="text"
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-80 pl-10 pr-4 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm"
             placeholder={`Search ${activeTab === 'roles' ? 'roles' : 'users'}...`}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -282,7 +290,7 @@ const RoleManagement = () => {
         {activeTab === 'roles' && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
           >
             <HiOutlinePlus className="-ml-1 mr-2 h-5 w-5" />
             Create New Role
@@ -290,72 +298,89 @@ const RoleManagement = () => {
         )}
       </div>
 
-      {/* Roles Tab Content */}
+      {/* Roles Tab Content - Card Layout */}
       {activeTab === 'roles' && (
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <ul className="divide-y divide-gray-200">
-            {filteredRoles.map((role) => (
-              <li key={role.id}>
-                <div className="px-4 py-5 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="flex-shrink-0 h-12 w-12 flex items-center justify-center bg-blue-100 rounded-md">
-                        <HiOutlineUserGroup className="h-6 w-6 text-blue-600" />
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl w-full">
+            {filteredRoles.map((role) => {
+            const totalPermissions = Object.values(role.permissions).reduce((total, modulePerms) => {
+              return total + Object.values(modulePerms).filter(Boolean).length;
+            }, 0);
+            
+            return (
+              <div key={role.id} className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden min-h-[280px] flex flex-col">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full transform translate-x-16 -translate-y-16"></div>
+                </div>
+                
+                {/* Header */}
+                <div className="relative z-10 flex-1 flex flex-col">
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-3 bg-blue-50 rounded-xl">
+                        <HiOutlineShieldCheck className="h-7 w-7 text-blue-600" />
                       </div>
-                      <div className="ml-4">
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">{role.name}</h3>
-                        <p className="text-sm text-gray-500">{role.description}</p>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-1">{role.name}</h3>
+                        <div className="flex items-center space-x-2">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {role.usersCount} users
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {role.usersCount} {role.usersCount === 1 ? 'User' : 'Users'}
-                      </span>
+                    <div className="flex space-x-2">
                       <button
                         onClick={() => handleEditRole(role)}
-                        className="inline-flex items-center p-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        className="p-2.5 bg-blue-50 rounded-lg hover:bg-blue-100 transition-all group"
                       >
-                        <HiOutlinePencil className="h-5 w-5" />
+                        <HiOutlinePencil className="h-4 w-4 text-blue-600 group-hover:text-blue-700" />
                       </button>
                       {role.name !== 'Super Admin' && (
                         <button
                           onClick={() => handleDeleteRole(role)}
-                          className="inline-flex items-center p-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                          className="p-2.5 bg-red-50 rounded-lg hover:bg-red-100 transition-all group"
                         >
-                          <HiOutlineTrash className="h-5 w-5 text-red-500" />
+                          <HiOutlineTrash className="h-4 w-4 text-red-600 group-hover:text-red-700" />
                         </button>
                       )}
                     </div>
                   </div>
-                  <div className="mt-4 border-t border-gray-200 pt-4">
-                    <h4 className="text-sm font-medium text-gray-500 mb-2">Permissions Overview</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                      {permissionModules.map((module) => (
-                        <div key={module.id} className="flex items-center space-x-2">
-                          {module.icon}
-                          <span className="text-sm text-gray-700">{module.name}</span>
-                          <span className="flex-grow"></span>
-                          {role.permissions[module.id].view && (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                              <HiOutlineCheck className="-ml-0.5 mr-1 h-3 w-3" />
-                              Access
-                            </span>
-                          )}
-                        </div>
-                      ))}
+                  
+                  {/* Description */}
+                  <div className="flex-1 mb-6">
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {role.description}
+                    </p>
+                  </div>
+                  
+                  {/* Stats */}
+                  <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600 text-sm font-medium">Active Users</span>
+                      <span className="text-gray-900 font-bold text-xl">{role.usersCount}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600 text-sm font-medium">Permissions</span>
+                      <span className="text-gray-900 font-bold text-xl">
+                        {totalPermissions === Object.keys(role.permissions).length * 4 ? 'All' : totalPermissions}
+                      </span>
                     </div>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ul>
+              </div>
+            );
+          })}
+          </div>
         </div>
       )}
 
       {/* Users Tab Content */}
       {activeTab === 'users' && (
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <table className="min-w-full divide-y divide-gray-200">
+        <div className="flex justify-center">
+          <div className="w-full max-w-6xl bg-white shadow-lg overflow-hidden rounded-xl border border-gray-200">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -420,7 +445,8 @@ const RoleManagement = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
 
@@ -439,30 +465,40 @@ const RoleManagement = () => {
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Role</h3>
-                  <div className="mt-6 space-y-6">
-                    <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                      <div className="sm:col-span-3">
-                        <label htmlFor="role-name" className="block text-sm font-medium text-gray-700">Role Name</label>
-                        <div className="mt-1">
+                  <div className="mt-6 space-y-8">
+                    {/* Professional Form Fields */}
+                    <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-6">Role Information</h4>
+                      <div className="space-y-6">
+                        <div>
+                          <label htmlFor="role-name" className="block text-sm font-semibold text-gray-700 mb-2">
+                            Role Name
+                          </label>
                           <input
                             type="text"
                             name="role-name"
                             id="role-name"
-                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            className="block w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                            placeholder="Enter role name"
                             value={selectedRole.name}
                             onChange={(e) => setSelectedRole({ ...selectedRole, name: e.target.value })}
                             disabled={selectedRole.name === 'Super Admin'}
                           />
+                          {selectedRole.name === 'Super Admin' && (
+                            <p className="mt-2 text-sm text-gray-500">Super Admin role name cannot be changed.</p>
+                          )}
                         </div>
-                      </div>
-                      <div className="sm:col-span-6">
-                        <label htmlFor="role-description" className="block text-sm font-medium text-gray-700">Description</label>
-                        <div className="mt-1">
-                          <input
-                            type="text"
+                        
+                        <div>
+                          <label htmlFor="role-description" className="block text-sm font-semibold text-gray-700 mb-2">
+                            Description
+                          </label>
+                          <textarea
                             name="role-description"
                             id="role-description"
-                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            rows={3}
+                            className="block w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
+                            placeholder="Describe the role's purpose and responsibilities"
                             value={selectedRole.description}
                             onChange={(e) => setSelectedRole({ ...selectedRole, description: e.target.value })}
                           />
@@ -470,9 +506,10 @@ const RoleManagement = () => {
                       </div>
                     </div>
 
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3">Permissions</h4>
-                      <div className="border rounded-md overflow-hidden">
+                    {/* Detailed Permissions */}
+                    <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-6">Permissions Configuration</h4>
+                      <div className="border border-gray-200 rounded-lg overflow-hidden">
                         <table className="min-w-full divide-y divide-gray-200">
                           <thead className="bg-gray-50">
                             <tr>
@@ -556,41 +593,47 @@ const RoleManagement = () => {
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">Create New Role</h3>
-                  <div className="mt-6 space-y-6">
-                    <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                      <div className="sm:col-span-3">
-                        <label htmlFor="new-role-name" className="block text-sm font-medium text-gray-700">Role Name</label>
-                        <div className="mt-1">
+                  <div className="mt-6 space-y-8">
+                    {/* Professional Form Fields */}
+                    <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-6">Role Information</h4>
+                      <div className="space-y-6">
+                        <div>
+                          <label htmlFor="new-role-name" className="block text-sm font-semibold text-gray-700 mb-2">
+                            Role Name
+                          </label>
                           <input
                             type="text"
                             name="new-role-name"
                             id="new-role-name"
-                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            className="block w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                            placeholder="Enter role name"
                             value={newRole.name}
                             onChange={(e) => setNewRole({ ...newRole, name: e.target.value })}
-                            placeholder="Enter role name"
                           />
                         </div>
-                      </div>
-                      <div className="sm:col-span-6">
-                        <label htmlFor="new-role-description" className="block text-sm font-medium text-gray-700">Description</label>
-                        <div className="mt-1">
-                          <input
-                            type="text"
+                        
+                        <div>
+                          <label htmlFor="new-role-description" className="block text-sm font-semibold text-gray-700 mb-2">
+                            Description
+                          </label>
+                          <textarea
                             name="new-role-description"
                             id="new-role-description"
-                            className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            rows={3}
+                            className="block w-full px-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none"
+                            placeholder="Describe the role's purpose and responsibilities"
                             value={newRole.description}
                             onChange={(e) => setNewRole({ ...newRole, description: e.target.value })}
-                            placeholder="Enter role description"
                           />
                         </div>
                       </div>
                     </div>
 
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-3">Permissions</h4>
-                      <div className="border rounded-md overflow-hidden">
+                    {/* Permissions Configuration */}
+                    <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-6">Permissions Configuration</h4>
+                      <div className="border border-gray-200 rounded-lg overflow-hidden">
                         <table className="min-w-full divide-y divide-gray-200">
                           <thead className="bg-gray-50">
                             <tr>

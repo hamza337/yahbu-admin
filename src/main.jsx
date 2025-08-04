@@ -10,6 +10,9 @@ import ContentModerationManagement from './components/moderation/ContentModerati
 import FinancialMonitoring from './components/financial/FinancialMonitoring'
 import AnalyticsReports from './components/analytics/AnalyticsReports'
 import RoleManagement from './components/permissions/RoleManagement'
+import SecuritySettings from './components/settings/SecuritySettings'
+import AuditLogs from './components/settings/AuditLogs'
+import BackupManagement from './components/settings/BackupManagement'
 import Login from './components/auth/Login'
 import Verify2FA from './components/auth/Verify2FA'
 import ForgetPassword from './components/auth/ForgetPassword'
@@ -35,6 +38,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/financial" element={<FinancialMonitoring />} />
           <Route path="/analytics" element={<AnalyticsReports />} />
           <Route path="/roles" element={<RoleManagement />} />
+          <Route path="/security" element={<SecuritySettings />} />
+          <Route path="/audit-logs" element={<AuditLogs />} />
+          <Route path="/backup" element={<BackupManagement />} />
           <Route path="/user/profile" element={<UserProfile />} />
         </Route>
       </Routes>
